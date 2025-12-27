@@ -5,6 +5,7 @@ from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 
+
 def home(request):
     featured_blogs = Blog.objects.all().filter(status= 'Published',is_featured=True).order_by('updated_at')
     blogs = Blog.objects.all().filter(status = 'Published',is_featured = False)
@@ -16,7 +17,6 @@ def home(request):
         'blogs':blogs,
         'featured_blogs':featured_blogs,
         'about' : about,
-
     }
 
     return render(request,'home.html',context)

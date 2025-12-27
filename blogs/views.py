@@ -44,7 +44,10 @@ def blogs(request,slug):
 def search(request):
     keyword = request.GET.get("keyword")
 
-    blogs = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_description__icontains=keyword) | Q(blog_body__icontains=keyword), status= 'Published')
+    try:
+        blogs = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_description__icontains=keyword) | Q(blog_body__icontains=keyword), status= 'Published')
+    except:
+        return render(request,'404.html')
     context = {
         'blogs' : blogs,
         'keyword': keyword,
